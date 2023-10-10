@@ -1,0 +1,77 @@
+
+
+body {
+    background-color: aqua;
+}
+
+* {
+    font-size: 18px;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+p {
+    margin: 0;
+}
+
+.wrapper {
+    position: relative;
+    background-color: aliceblue;
+    margin: auto;
+    width: 700px;
+    height:auto;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-radius: 10px;
+}
+
+.custom-form {
+    background-color: rgb(234, 44, 44);
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 30px;
+}
+
+.create-to-do {
+    padding-top: 70px;
+    justify-content:space-evenly;
+}
+
+.item {
+    margin: 15px 24px;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color:mediumpurple;
+    color: white;
+    border-radius: 10px;
+}
+
+.item-mutation {
+    margin: 20px;
+    padding-bottom: 20px;
+}
+
+
+.login-form {
+    padding: 20px
+}
+
+.navbar-brand {
+    color:rgb(84, 81, 95);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.navbar-brand:hover {
+    color:rgb(133, 206, 251);
+}
+
+.form-group + .form-group {
+    margin-top: 10px;
+}
+
+.to-auth {
+    position: absolute;
+    right: 15px;
+}

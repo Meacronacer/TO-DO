@@ -1,0 +1,17 @@
+{% extends 'core/index.html' %}
+
+{% block title %}<title>Delete</title>{% endblock %}
+
+{% block content  %}
+<a style="margin-left: 15px;" class="navbar-brand" href="{% url 'home' %}">go back</a>
+
+    <form style="justify-content: space-around; padding: 10px;" method="POST" action="">
+        {% csrf_token %}
+        <p style="padding: 10px;">Are you sure you want to delete this <mark>{{ task }}</mark> ?</p>
+        <div>
+        <button type="submit" class="btn btn-danger">Delete Task</button>
+        </div>
+
+    </form>
+
+{% endblock %}

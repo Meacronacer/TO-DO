@@ -1,0 +1,18 @@
+{% extends 'core/index.html' %}
+
+{% block title %}<title>Update</title>{% endblock %}
+
+{% block content %}
+<a style="margin-left: 15px;" class="navbar-brand" href="{% url 'home' %}">go back</a>
+<div class="item-mutation">
+    <form style="justify-content: space-around; align-items:center;" class="d-flex" method="POST" action="">
+        {% csrf_token %}
+
+        {{ form.title }}
+        <div style="align-items: center; justify-content: space-between; width: 300px; margin-left: 10px;" class="d-flex">
+        <label style="align-items:center; margin: 0 10px;"> complete {{ form.complete }} </label>
+        <button type="submit" class="btn btn-warning">Update Task</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

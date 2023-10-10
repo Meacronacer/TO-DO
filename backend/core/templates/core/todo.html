@@ -1,0 +1,60 @@
+{% extends 'core/index.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+    <h4 style="position: absolute; margin-left: 30px; top: 10px; color:white;">Hello {{ request.user }} !</h4>
+    <a class="navbar-brand to-auth" href="{% url 'logout' %}">Log out</a>
+
+    <form method="POST" class="custom-form">
+        {% csrf_token %}
+        <div class="d-flex create-to-do">
+            <!-- <input type="text" name="name" class="form-control w-75 input" placeholder="create to-do"> -->
+            {{ form.title }}
+            <button style="width: 100px;" type="submit" class="btn btn-success">ADD</button>
+        </div>
+
+        <h3 style="margin: 20px 0px 0px 24px; color:white;">You have {{count}} incomplete task{{ count|pluralize:"s" }}</h3>
+
+    </form>
+
+{% else %}
+    <a style="right:90px;" class="navbar-brand to-auth" href="{% url 'register' %}">register</a>
+    <p style="position: absolute; right: 80px;">|</p>
+    <a class="navbar-brand to-auth" href="{% url 'login' %}">Login</a>
+
+    <div>
+        <h3 style="padding: 50px 20px;">To be able to: <br> create new tasks, read, edit or delete them <br><br> log in or if you don’t have an account, please register</h3>
+    </div>
+{% endif %}
+
+
+<div class="items-list">
+    {% for item in items reversed %}
+    <div class="item d-flex">
+        {% if item.complete %}
+            <del>{{ item.title }}</del>
+        {% else %}
+            <span>{{ item.title }}</span>
+        {% endif %}
+        <div class="d-flex">
+            <a href="{% url 'update_task' item.id %}" type="button" style="margin-right: 7px;" class="btn btn-warning">Update</a>
+            <a href="{% url 'delete_task' item.id %}" type="button" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if items|length < 1 and request.user.is_authenticated %}
+    <div style="text-align: center; padding: 10px; line-height: 1em;">
+        <h3>you currently have zero tasks created</h3>
+    </div>
+    {% endif %}
+    <!-- {% if items|length < 1 %}
+    <h4>you don't have any tasks</h4>
+    {% endif %} -->
+</div>
+<br>
+
+
+{% endblock %}

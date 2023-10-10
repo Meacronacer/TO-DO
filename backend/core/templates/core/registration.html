@@ -1,0 +1,16 @@
+{% extends 'core/index.html' %}
+
+{% block title %}<title>Registration</title>{% endblock %}
+
+{% block content  %}
+<a style="margin-left: 15px;" class="navbar-brand" href="{% url 'home' %}">go back</a>
+
+<form class="login-form" method="POST">
+  {% csrf_token %}
+
+  {{ form.as_p}}
+
+    <button style="margin-top: 10px;" type="submit" class="btn btn-primary">Registration</button>
+  </form>
+
+{% endblock %}
