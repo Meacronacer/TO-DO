@@ -1,0 +1,69 @@
+body {
+  height: 100%;
+  margin: 0;
+  background: #1e3c72;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #578be3, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2a5298, #467de4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+} */
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+* {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items:center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+
+
+.go-back {
+  border-radius: 9px;
+  box-shadow: inset 0 0 0 0 #54b3d6;
+  color: white;
+  margin: 0 -.25rem;
+  padding: 0 .25rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+.go-back:hover {
+  box-shadow: inset 100px 0 0 0 #54b3d6;
+  border-radius: 9px;
+  color: white;
+}
+
+

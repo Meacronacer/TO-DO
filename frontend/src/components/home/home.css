@@ -1,0 +1,15 @@
+
+
+
+
+.home {
+    margin: auto;
+    height: 100vh;
+    justify-content: center;
+    align-items:center;
+}
+
+.home a {
+    font-size: 24px;
+}
+

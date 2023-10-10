@@ -1,0 +1,13 @@
+
+
+.go-back {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.error {
+    font-size: 24px;
+    color: rgb(242, 61, 61);
+    margin-left: 20px;
+}

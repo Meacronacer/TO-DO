@@ -1,0 +1,18 @@
+
+.reg-form {
+    padding: 20px;
+}
+
+.s-btn {
+    margin-top: 10px;
+}
+
+.link-acc {
+    padding-bottom: 10px;
+    width: fit-content;
+    margin: auto;
+}
+
+.link-acc:hover {
+    color:cornflowerblue;
+}

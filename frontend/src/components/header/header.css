@@ -1,0 +1,23 @@
+
+
+.header {
+    background: linear-gradient(to right, #e53935, #e35d5b);
+    margin-bottom: 20px;
+    height: 100px;
+    border-radius: 15px 15px 0 0;
+}
+
+.headers-b {
+    justify-content: space-between;
+    margin: 0 10px;
+    padding-top: 5px;
+}
+
+.login {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.login:hover {
+    color:deepskyblue;
+}
