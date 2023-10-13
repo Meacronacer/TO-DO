@@ -1,9 +1,28 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { useHttp } from '../axios/axios'
+import { userDataChange } from '../store/actions'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import './login.css'
-import { Link, Navigate } from 'react-router-dom'
 
-const Login = (props) => {
+const Login = () => {
 
-    const {name, password, setName, setPassword, submitLogin, error, setErr} = props
+
+    const {request} = useHttp()
+    const {username, password} = useSelector(state => state.userData)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+ 
+    const submitLogin = (e) => {
+        e.preventDefault();
+        request('post', '/api/login/', {username, password})
+            .then(() => {
+            localStorage.setItem("isAuth", true)
+            localStorage.setItem("user", username)
+            navigate('../tasks')
+        }).catch(error =>console.log(error))
+    }
+
+
 
     if (localStorage.getItem("isAuth") === 'true') {
         return <Navigate to='../tasks' />
@@ -19,25 +38,24 @@ const Login = (props) => {
                     <div className="form-group">
                         <label>Username</label>
                         <input 
-                         type="username"
                          name='username'
-                         value={name}
-                         onChange={(e) => setName(e.target.value)}
+                         value={username}
+                         onChange={(e) => dispatch(userDataChange(e.target))}
                         className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username"/>
                     </div>
                     <div className="form-group">
                         <label>Password</label>
                         <input
-                         type="password"
+                         type='password'
                          name='password'
                          value={password}
-                         onChange={(e) => setPassword(e.target.value)}
+                         onChange={(e) => dispatch(userDataChange(e.target))}
                          className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                     </div>
 
                     <button type="submit" className="btn btn-primary s-btn">Log in</button>
                     </form>
-                    {error ? <div className='error' >invalid login or password</div> : null}
+
                 <Link className='d-flex justify-content-center link-acc' to='../registration'>I don't have an account</Link>
             </div>
         </div>

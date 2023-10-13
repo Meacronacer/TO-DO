@@ -1,12 +1,15 @@
+import { useDispatch } from "react-redux";
+import { activeModal } from "../store/actions";
 
+const AddTask = () => {
+    const dispatch = useDispatch()
 
-const AddTask = (props) => {
-    
     return (
         <button 
-        onClick={() => props.modalTonggle('block', 'add')}
+        onClick={() => dispatch(activeModal(true, 'Create'))}
         style={{marginLeft: "20px"}} className="btn btn-primary">Add Task</button>
     )
 }
+
 
 export default AddTask;

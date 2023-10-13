@@ -1,13 +1,17 @@
+import { useDispatch, useSelector } from "react-redux"
+import { tasksDataFilter } from "../../store/actions"
 
-
-
-const BtnsFilter = (props) => {
+const BtnsFilter = () => {
     
+    const dispatch = useDispatch()
+    const activeFilter = useSelector(state => state.activeFilter)
+
+
     const btns = ['all', 'complete', 'incomplete'].map((item, index) => {
         return <button type="button"
          key={index}
-         className={'btn ' + (props.activeFilter === item ? 'btn-light': 'btn-outline-light')}
-         onClick={() => props.setActiveFilter(item)}
+         className={'btn ' + (activeFilter === item ? 'btn-light': 'btn-outline-light')}
+         onClick={() => dispatch(tasksDataFilter(item))}
          >{item} 
          </button>
     })
