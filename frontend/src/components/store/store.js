@@ -1,6 +1,14 @@
-import { legacy_createStore as createStore } from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import reducer from './reducer';
+import {apiSlice, authApi} from '../../api/apiSlice'
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = configureStore({
+    reducer: {
+        reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer},
+    middleware: () => getDefaultMiddleware({serializableCheck: false}
+    ).concat(apiSlice.middleware, authApi.middleware),
+    devTools: process.env.NODE_ENV !== 'production'
+})
 
 export default store;

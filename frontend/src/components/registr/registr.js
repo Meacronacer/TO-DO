@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { useHttp } from '../axios/axios'
 import { userDataChange } from '../store/actions'
+import { useAuthUserMutation, useRegisterUserMutation } from '../../api/apiSlice'
 import './registr.css'
 
 const Register = () => {
 
-    const {username, password} = useSelector(state => state.userData)
-    const {request} = useHttp()
+    const {username, password} = useSelector(state => state.reducer.userData)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [registerUser] = useRegisterUserMutation()
+    const [authUser] = useAuthUserMutation()
 
     if (localStorage.getItem("isAuth") === 'true') {
         return <Navigate to='../tasks' />
@@ -18,15 +19,15 @@ const Register = () => {
     
     const submitRegestrtion = (e) => {
         e.preventDefault();
-        request('post', '/api/register/' ,{username, password})
-           .then(() => request('post', '/api/login/', {username, password})
-                          .then(() => {
-                                localStorage.setItem("isAuth", true)
-                                localStorage.setItem("user", username)  
-                                navigate('../tasks')
-                          }).catch(error =>console.log(error)))
-           .catch(error => console.log(error))
-        
+        registerUser({username, password}).unwrap()
+            .then(() => authUser({username, password}).unwrap()
+                    .then((payload) => {
+                        console.log(payload)
+                        localStorage.setItem("isAuth", true)
+                        localStorage.setItem("user", username)
+                        navigate('../tasks')
+                    })
+            )
     }
 
 

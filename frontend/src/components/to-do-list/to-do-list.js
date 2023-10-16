@@ -1,31 +1,26 @@
 import TodoItem from '../to-do-item/to-do-item';
 import Spinner from '../spinner/spinner';
-import { useHttp } from '../axios/axios';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
-import { tasksDataFetched, tasksDataFetching, tasksDataFetchingError} from '../store/actions';
+import {useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { useGetTasksQuery } from '../../api/apiSlice';
+import { incompleteTasks } from '../store/actions';
 import { useEffect } from 'react';
 
 const TodoList = () => {
 
-    const {request} = useHttp()
+    const {data: tasks = [], isLoading} = useGetTasksQuery()
     const dispatch = useDispatch()
-    const [tasksData, activeFilter, search, dataLoading] = useSelector((state) => [
-        state.tasksData,
-        state.activeFilter,
-        state.search,
-        state.dataLoading
-      ], shallowEqual);
-    
+
     useEffect(() => {
-        dispatch(tasksDataFetching());
-        request('get', '/api/tasks/')
-            .then(res => dispatch(tasksDataFetched(res.data)))
-            .catch(() => dispatch(tasksDataFetchingError()))
+        dispatch(incompleteTasks(tasks.filter(item => !item.complete).length))
         // eslint-disable-next-line
-    }, [tasksData.length])
+    }, [tasks])
+    
+    const [activeFilter, search] = useSelector((state) => [
+        state.reducer.activeFilter,
+        state.reducer.search,
+      ], shallowEqual);
 
-
-    if (dataLoading === 'loading') {
+    if (isLoading) {
         return <Spinner/>
     }
 
@@ -49,13 +44,11 @@ const TodoList = () => {
     }
 
 
-    const filteredData = searchFilter(filterData(tasksData, activeFilter), search)
+    const filteredData = searchFilter(filterData(tasks, activeFilter), search)
 
     const listOfItems = filteredData.map((item, index) => {
         return <TodoItem key={index} item={item} />
     })
-
-
 
     return (
         <div style={{paddingBottom: '15px'}}>

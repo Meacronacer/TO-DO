@@ -5,14 +5,15 @@ import { Link, Navigate, useNavigate} from 'react-router-dom'
 import AddTask from '../add-new-task/add-new-task'
 import { userDataChange } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHttp } from '../axios/axios'
+import { useLogoutUserMutation } from '../../api/apiSlice'
 
 const Header = () => {
     
-    const {request} = useHttp()
     const dispatch = useDispatch()
-    const incomplete = useSelector(state => state.incomplete)
+    const incomplete = useSelector(state => state.reducer.incomplete)
     let navigate = useNavigate()
+    const [logoutUser] = useLogoutUserMutation()
+
 
     if (localStorage.getItem('isAuth') === 'false') {
         return <Navigate to='../login' />
@@ -20,14 +21,11 @@ const Header = () => {
 
     const submitLogout = (e) => {
         e.preventDefault();
-        request('get','/api/logout/')
-            .then()
-            .catch(error => console.log(error))
-        dispatch(userDataChange({name: 'username', value: ''}))
-        dispatch(userDataChange({name: 'password', value: ''}))
+        logoutUser()
         localStorage.setItem('user', 'notAuth')
         localStorage.setItem("isAuth", false)
-
+        dispatch(userDataChange({name: 'username', value: ''}))
+        dispatch(userDataChange({name: 'password', value: ''}))
         navigate("../");
     }
 

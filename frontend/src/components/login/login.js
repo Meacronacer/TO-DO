@@ -1,25 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useHttp } from '../axios/axios'
 import { userDataChange } from '../store/actions'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import './login.css'
+import { useAuthUserMutation } from '../../api/apiSlice'
 
 const Login = () => {
 
-
-    const {request} = useHttp()
-    const {username, password} = useSelector(state => state.userData)
+    const {username, password} = useSelector(state => state.reducer.userData)
     const dispatch = useDispatch()
     const navigate = useNavigate()
- 
+
+    const [authUser] = useAuthUserMutation()
+
     const submitLogin = (e) => {
         e.preventDefault();
-        request('post', '/api/login/', {username, password})
-            .then(() => {
-            localStorage.setItem("isAuth", true)
-            localStorage.setItem("user", username)
-            navigate('../tasks')
-        }).catch(error =>console.log(error))
+        authUser({username,password}).unwrap()
+            .then((payload) => {
+                localStorage.setItem("isAuth", true)
+                localStorage.setItem("user", username)
+                navigate('../tasks')
+            })
+            .catch((error) => console.error('rejected', error));
     }
 
 

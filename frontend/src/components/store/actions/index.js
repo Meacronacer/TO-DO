@@ -1,22 +1,3 @@
-export const tasksDataFetching = () => {
-    return {
-        type: 'TASKS_DATA_FETCHING'
-    }
-}
-
-export const tasksDataFetched = (tasks) => {
-    return {
-        type: 'TASKS_DATA_FETCHED',
-        payload: tasks
-    }
-}
-
-export const tasksDataFetchingError = () => {
-    return {
-        type: 'TASKS_DATA_FETCHING_ERROR'
-    }
-}
-
 export const tasksDataFilter = (filter) => {
     return {
         type: 'TASKS_DATA_FILTER',
@@ -24,31 +5,17 @@ export const tasksDataFilter = (filter) => {
     }
 }
 
+export const incompleteTasks = (count) => {
+    return {
+        type: 'TASKS_INCOMPLETE',
+        payload: count
+    }
+}
+
 export const tasksDataSearch = (name) => {
     return {
         type: 'TASKS_DATA_SEARCH',
         payload: name
-    }
-}
-
-export const taskDeleted = (id) => {
-    return {
-        type: 'TASK_DELETED',
-        payload: id
-    }
-}
-
-export const taskCreate = (item) => {
-    return {
-        type: 'TASK_CREATED',
-        payload: item
-    }
-}
-
-export const taskUpdate = (id, item) => {
-    return {
-        type: 'TASK_UPDATED',
-        payload: {id, item}
     }
 }
 

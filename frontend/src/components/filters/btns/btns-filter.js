@@ -4,7 +4,7 @@ import { tasksDataFilter } from "../../store/actions"
 const BtnsFilter = () => {
     
     const dispatch = useDispatch()
-    const activeFilter = useSelector(state => state.activeFilter)
+    const activeFilter = useSelector(state => state.reducer.activeFilter)
 
 
     const btns = ['all', 'complete', 'incomplete'].map((item, index) => {

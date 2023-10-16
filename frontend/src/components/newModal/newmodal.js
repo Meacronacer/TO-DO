@@ -1,13 +1,13 @@
 import './newmodal.css'
-import { useHttp } from "../axios/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { activeModal, taskCreate, taskUpdate } from "../store/actions";
+import { activeModal } from "../store/actions";
 import { modalDataChange } from "../store/actions"
+import { useCreateTaskMutation, useUpdateTaskMutation } from '../../api/apiSlice';
 
 const NewModal = () => {
 
     const dispatch = useDispatch()
-    const active = useSelector(state => state.activeModal)
+    const active = useSelector(state => state.reducer.activeModal)
 
     if (active) {
         document.body.classList.add('overlay-active')
@@ -28,10 +28,11 @@ const NewModal = () => {
 const TaskModelContentMutation = () => {
     
     const dispatch = useDispatch()
-    const data = useSelector(state => state.modalData)
-    const modalMethod = useSelector(state => state.activeModalMethod)
+    const data = useSelector(state => state.reducer.modalData)
+    const modalMethod = useSelector(state => state.reducer.activeModalMethod)
 
-    const {request} = useHttp()
+    const [createTask] = useCreateTaskMutation()
+    const [updateTask] = useUpdateTaskMutation()
 
     const submitMutation = (e) => {
         e.preventDefault()
@@ -42,20 +43,15 @@ const TaskModelContentMutation = () => {
         }
 
         if (modalMethod === 'Create') {
-            request('post', '/api/tasks/', item)
-                .then(() => dispatch(taskCreate(item)))
-                .then(dispatch(activeModal(false)))
-                .catch(err => console.log('was failed to create', err))
-        }
+            createTask(item).unwrap()
+            dispatch(activeModal(false))
+        }   
 
         if (modalMethod === 'Update') {
-            request('put', `/api/tasks/${data.id}/`, item)
-                .then(() => dispatch(taskUpdate(data.id, {...data, ...item})))
-                .then(dispatch(activeModal(false)))
-                .catch(err => console.log('was failed to update', err))
+            updateTask({'id': data.id, item})
+            dispatch(activeModal(false))
         }
     }
-
 
     return (
         <>
